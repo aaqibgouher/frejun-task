@@ -7,6 +7,7 @@ Ensure your system meets the following requirements before proceeding:
 
 - **Node.js**: v21.2.0 or higher
 - **npm/yarn**: Latest version
+- **Express.js**: Node backend framework
 - **Postgres**: for backend database
 
 ## Installation Instructions
@@ -41,3 +42,21 @@ Once server is started, if prisma initialisation, migration, db setup done corre
 
 ## DB Schema
 ![Image Alt Text](./fre_jun_db-Page-1.drawio.png)
+
+## Postman Collection
+The Postman collection for testing API endpoints is located at:
+
+    ```bash
+    frejun_collection.postman_collection.json
+
+You can import this file into Postman to test all available API routes.
+
+## How To Setup Configs?
+Once collection is been imported, we have to setup our berths configs
+
+### Berth Config Setup
+Hit this API, it will setup default berth configs
+   ```bash
+   /api/v1/configs
+
+# We are done, now we can use tickets api's

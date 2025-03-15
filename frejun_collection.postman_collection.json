@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "68bee65b-2d8a-49a7-ab4c-ea9480eadcc8",
+		"name": "frejun_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17953118",
+		"_collection_link": "https://crimson-trinity-429126.postman.co/workspace/My-Workspace~81f6d802-35ca-4242-846d-ed871d527d76/collection/17953118-68bee65b-2d8a-49a7-ab4c-ea9480eadcc8?action=share&source=collection_link&creator=17953118"
+	},
+	"item": [
+		{
+			"name": "configs",
+			"item": [
+				{
+					"name": "get config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/configs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"configs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add config",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/configs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"configs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "berths",
+			"item": [
+				{
+					"name": "get berths",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/berths",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"berths"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tickets",
+			"item": [
+				{
+					"name": "book ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalBooking\": 6,\n    \"passengers\": [\n        {\n            \"name\": \"Rahul Kumar\",\n            \"age\": 20,\n            \"gender\": \"MALE\"\n        },\n        {\n            \"name\": \"Neha Kumari\",\n            \"age\": 35,\n            \"gender\": \"FEMALE\"\n            // \"withChild\": true\n        },\n        {\n            \"name\": \"Aamir\",\n            \"age\": 40,\n            \"gender\": \"MALE\"\n        },\n        {\n            \"name\": \"Ranjit Singh\",\n            \"age\": 60,\n            \"gender\": \"MALE\"\n        },\n        {\n            \"name\": \"Mohak\",\n            \"age\": 65,\n            \"gender\": \"FEMALE\"\n        },\n        {\n            \"name\": \"Rahul Kumar\",\n            \"age\": 20,\n            \"gender\": \"MALE\"\n        }\n    ],\n    \"isRac\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tickets/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get booked tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tickets/booked?pnr=9582043847",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"booked"
+							],
+							"query": [
+								{
+									"key": "pnr",
+									"value": "9582043847"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get available tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tickets/available",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tickets/cancel/6446258622",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"cancel",
+								"6446258622"
+							],
+							"query": [
+								{
+									"key": "pnr",
+									"value": "3059820164",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
