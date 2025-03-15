@@ -1,0 +1,24 @@
+{
+  "name": "frejun_task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index",
+    "migrate": "npx prisma migrate dev --name init"
+  },
+  "author": "AG",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "joi": "^17.13.3",
+    "pg": "^8.14.0",
+    "prisma": "^6.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

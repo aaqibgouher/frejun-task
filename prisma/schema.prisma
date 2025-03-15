@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/**
+ * ************ ENUMS ***********
+ */
+enum BERTH_TYPE {
+  LB // Lower Berth
+  MB // Middle Berth
+  UB // Upper Berth
+  SL // Side Lower
+  SU // Side Upper
+}
+
+enum BERTH_STATUS {
+  RAC
+  CONFIRMED
+  AVAILABLE
+}
+
+enum TICKET_STATUS {
+  PENDING
+  PARTIALLY_CONFIRMED
+  FULLY_CONFIRMED
+  CANCELLED
+}
+
+enum PASSENGER_STATUS {
+  RAC
+  CONFIRMED
+  WAITLISTED
+  CANCELLED
+  NO_BERTH // for child
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+/**
+ * ************ SCHEMAS ***********
+ */
+model Config {
+  id                               String @id @default(uuid())
+  total_confirmed_berths_config    Int    @default(63)
+  total_rac_berths_config          Int    @default(8)
+  total_waiting_list_berths_config Int    @default(10)
+  total_confirmed_berths           Int    @default(0)
+  total_rac_berths                 Int    @default(0)
+  total_waiting_list_berths        Int    @default(0)
+  fare                             Int    @default(1000)
+  rac_fare                         Int    @default(1500)
+  waiting_list_fare                Int    @default(1800)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("configs")
+}
+
+model Ticket {
+  id        String        @id @default(uuid())
+  pnr       String        @unique
+  status    TICKET_STATUS @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  passengers Passenger[] @relation("TicketPassengers")
+
+  @@map("tickets")
+}
+
+model Passenger {
+  id         String           @id @default(uuid())
+  ticket_id  String
+  name       String
+  age        Int
+  gender     Gender
+  status     PASSENGER_STATUS @default(WAITLISTED)
+  berth_info Json?
+  with_child Boolean          @default(false)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  ticket Ticket           @relation("TicketPassengers", fields: [ticket_id], references: [id])
+  berths PassengerBerth[]
+
+  @@map("passengers")
+}
+
+model Berth {
+  id           String       @id @default(uuid())
+  coach_no     String       @default("B1")
+  berth_no     Int
+  berth_type   BERTH_TYPE
+  berth_status BERTH_STATUS @default(AVAILABLE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  passengers PassengerBerth[]
+
+  @@map("berths")
+}
+
+model PassengerBerth {
+  id           String @id @default(uuid())
+  passenger_id String
+  berth_id     String
+  priority     Int    @default(autoincrement())
+
+  passenger Passenger @relation(fields: [passenger_id], references: [id])
+  berth     Berth     @relation(fields: [berth_id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([passenger_id, berth_id]) // Prevent duplicate mapping
+  @@map("passenger_berths")
+}
